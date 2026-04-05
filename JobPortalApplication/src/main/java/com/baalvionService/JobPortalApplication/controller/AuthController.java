@@ -34,7 +34,7 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // ✅ FIX
+    private PasswordEncoder passwordEncoder; // FIX
 
     // ================= SIGNUP =================
     @PostMapping("/signup")
@@ -48,10 +48,10 @@ public class AuthController {
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
 
-        // 🔐 Encrypt password
+        // Encrypt password
         user.setPassword(passwordEncoder.encode(req.getPassword()));
 
-        // ✅ Safe role handling
+        //  Safe role handling
         try {
             user.setRole(UserRole.valueOf(req.getRole().toUpperCase()));
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class AuthController {
                 )
         );
 
-        // ✅ Use authenticated principal (IMPORTANT)
+        // Use authenticated principal (IMPORTANT)
         String email = auth.getName();
 
         String token = jwtUtil.generateToken(email);
